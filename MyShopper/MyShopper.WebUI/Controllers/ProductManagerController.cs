@@ -10,12 +10,12 @@ namespace MyShopper.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        ProductRepository context;
-        ProductCategoryRepository categories;
+        InMemoryRepository<Product> context;
+        InMemoryRepository<ProductCategory> categories;
         public ProductManagerController()
         {
-            context = new ProductRepository();
-            categories = new ProductCategoryRepository();
+            context = new InMemoryRepository<Product>();
+            categories = new InMemoryRepository<ProductCategory>();
         }
         // GET: ProductManager
         public ActionResult Index()

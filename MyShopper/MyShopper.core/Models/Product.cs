@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyShopper.core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace MyShopper.core
 {
-    public class Product
+    public class Product:BaseEntity
     {
-        public string ID { get; set; }
         [StringLength(20)]
         [DisplayName("Product Name")]
         public string Name { get; set; }
@@ -20,9 +20,6 @@ namespace MyShopper.core
         public decimal Price { get; set; }
         public string Category { get; set; }
         public string Image { get; set; }
-        public Product()
-        {
-            this.ID = Guid.NewGuid().ToString();
-        }
+      
     }
 }
