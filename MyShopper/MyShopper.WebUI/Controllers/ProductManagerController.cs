@@ -4,15 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyShopper.core;
+using MyShopper.core.ViewModels;
 using MyShopper.DataAccess.InMemory;
 namespace MyShopper.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
         ProductRepository context;
+        ProductCategoryRepository categories;
         public ProductManagerController()
         {
             context = new ProductRepository();
+            categories = new ProductCategoryRepository();
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -20,21 +23,23 @@ namespace MyShopper.WebUI.Controllers
             List<Product> products = context.Collection().ToList();
             return View(products);
         }
-
+      
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.product=new Product();
+            viewModel.productCategories = categories.Collection();
+            return View(viewModel);
         }
         [HttpPost]
         public ActionResult Create(Product product)
         {
             if (!ModelState.IsValid)
             {
-                return View(product);
+               return View(product);
             }
             else
-            {
+            {              
                 context.Insert(product);
                 context.Commit();
                 return RedirectToAction("Index");
@@ -50,7 +55,11 @@ namespace MyShopper.WebUI.Controllers
             }
             else
             {
-                return View(productToEdit);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.product = productToEdit;
+                viewModel.productCategories = categories.Collection();
+
+                return View(viewModel);
             }
         }
         [HttpPost]
