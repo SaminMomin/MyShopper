@@ -1,4 +1,5 @@
-﻿using MyShopper.core.Models;
+﻿using MyShopper.core.Contracts;
+using MyShopper.core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyShopper.DataAccess.InMemory
 {
-    public class InMemoryRepository<T> where T:BaseEntity
+    public class InMemoryRepository<T> : IRepository<T> where T : BaseEntity
     {
         ObjectCache cache = MemoryCache.Default;
         List<T> items;
@@ -69,7 +70,7 @@ namespace MyShopper.DataAccess.InMemory
         public void Delete(string Id)
         {
             T ttoDelete = items.Find(t => t.Id == Id);
-            if (ttoDelete!= null)
+            if (ttoDelete != null)
             {
                 items.Remove(ttoDelete);
             }

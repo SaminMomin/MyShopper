@@ -1,4 +1,5 @@
 ﻿using MyShopper.core;
+using MyShopper.core.Contracts;
 using MyShopper.DataAccess.InMemory;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,15 @@ namespace MyShopper.WebUI.Controllers
     public class ProductCategoryManagerController : Controller
     {
         // GET: ProductCategoryManager
-        InMemoryRepository<ProductCategory> context;
-        public ProductCategoryManagerController()
+        IRepository<ProductCategory> productCategoriesContext;
+        public ProductCategoryManagerController(IRepository<ProductCategory> productCategoriesContext)
         {
-            context = new InMemoryRepository<ProductCategory>();
+            this.productCategoriesContext = productCategoriesContext;
         }
         // GET: ProductManager
         public ActionResult Index()
         {
-            List<ProductCategory> productCategories = context.Collection().ToList();
+            List<ProductCategory> productCategories = productCategoriesContext.Collection().ToList();
             return View(productCategories);
         }
 
@@ -37,15 +38,15 @@ namespace MyShopper.WebUI.Controllers
             }
             else
             {
-                context.Insert(productCategory);
-                context.Commit();
+                productCategoriesContext.Insert(productCategory);
+                productCategoriesContext.Commit();
                 return RedirectToAction("Index");
             }
         }
 
         public ActionResult Edit(string Id)
         {
-            ProductCategory productCategoryToEdit = context.Find(Id);
+            ProductCategory productCategoryToEdit = productCategoriesContext.Find(Id);
             if (productCategoryToEdit == null)
             {
                 return HttpNotFound();
@@ -58,7 +59,7 @@ namespace MyShopper.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(ProductCategory productCategory, string Id)
         {
-            ProductCategory productCategoryToEdit = context.Find(Id);
+            ProductCategory productCategoryToEdit = productCategoriesContext.Find(Id);
             if (productCategoryToEdit == null)
             {
                 return HttpNotFound();
@@ -72,7 +73,7 @@ namespace MyShopper.WebUI.Controllers
                 else
                 {
                     productCategoryToEdit.Category = productCategory.Category;
-                    context.Commit();
+                    productCategoriesContext.Commit();
                     return RedirectToAction("Index");
                 }
             }
@@ -80,7 +81,7 @@ namespace MyShopper.WebUI.Controllers
 
         public ActionResult Delete(string Id)
         {
-            ProductCategory productCategoryToDelete = context.Find(Id);
+            ProductCategory productCategoryToDelete = productCategoriesContext.Find(Id);
             if (productCategoryToDelete == null)
             {
                 return HttpNotFound();
@@ -95,15 +96,15 @@ namespace MyShopper.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(string Id)
         {
-            ProductCategory productCategoryToDelete = context.Find(Id);
+            ProductCategory productCategoryToDelete = productCategoriesContext.Find(Id);
             if (productCategoryToDelete == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                context.Delete(Id);
-                context.Commit();
+                productCategoriesContext.Delete(Id);
+                productCategoriesContext.Commit();
                 return RedirectToAction("Index");
             }
         }
