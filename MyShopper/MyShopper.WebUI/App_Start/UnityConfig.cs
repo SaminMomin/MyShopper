@@ -1,6 +1,7 @@
 using MyShopper.core;
 using MyShopper.core.Contracts;
 using MyShopper.DataAccess.InMemory;
+using MyShopper.DataAccess.SQL;
 using System;
 
 using Unity;
@@ -44,8 +45,8 @@ namespace MyShopper.WebUI
             // container.LoadConfiguration();
 
             // TODO: Register your type's mappings here.
-            container.RegisterType<IRepository<Product>, InMemoryRepository<Product>>();
-            container.RegisterType<IRepository<ProductCategory>, InMemoryRepository<ProductCategory>>();
+            container.RegisterType<IRepository<Product>, SQLRepository<Product>>();
+            container.RegisterType<IRepository<ProductCategory>, SQLRepository<ProductCategory>>();
         }
     }
 }
