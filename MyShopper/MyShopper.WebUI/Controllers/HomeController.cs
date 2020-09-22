@@ -1,5 +1,6 @@
 ﻿using MyShopper.core;
 using MyShopper.core.Contracts;
+using MyShopper.core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,21 @@ namespace MyShopper.WebUI.Controllers
             this.productContext = productContext;
             this.productCategoryContext = productCategoryContext;
         }
-        public ActionResult Index()
+        public ActionResult Index(String Category=null)
         {
-            List<Product> products = productContext.Collection().ToList();
-            return View(products);
+            List<Product> products;
+            ProductListViewModel model=new ProductListViewModel();
+            if (Category == null)
+            {
+                products = productContext.Collection().ToList();
+            }
+            else
+            {
+                products = productContext.Collection().Where(p => p.Category == Category).ToList();
+            }
+            model.products = products;
+            model.productCategories = productCategoryContext.Collection().ToList();
+            return View(model);
         }
 
         public ActionResult Details(string id)
