@@ -8,7 +8,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyShopper.core
+namespace MyShopper.core.Models
 {
     public class Product:BaseEntity
     {

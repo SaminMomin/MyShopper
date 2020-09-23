@@ -1,5 +1,6 @@
 using MyShopper.core;
 using MyShopper.core.Contracts;
+using MyShopper.core.Models;
 using MyShopper.DataAccess.InMemory;
 using MyShopper.DataAccess.SQL;
 using System;

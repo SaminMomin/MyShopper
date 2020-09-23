@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyShopper.core;
 using MyShopper.core.Contracts;
+using MyShopper.core.Models;
 using MyShopper.core.ViewModels;
 using MyShopper.DataAccess.InMemory;
 namespace MyShopper.WebUI.Controllers
