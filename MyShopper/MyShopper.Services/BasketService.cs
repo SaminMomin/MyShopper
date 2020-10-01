@@ -136,5 +136,12 @@ namespace MyShopper.Services
                 return model;
             }
         }
+
+        public void ClearBasket(HttpContextBase httpContext)
+        {
+            Basket basket = Get(httpContext, false);
+            basket.BasketItems.Clear();
+            basketContext.Commit();
+        }
     }
 }

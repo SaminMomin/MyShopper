@@ -25,7 +25,7 @@
 @foreach (var item in Model) {
 <tr>
     <td>
-        <img src="~/Content/ProductImages/@item.Image" class="img-thumbnail" />
+        <img src="~/Content/ProductImages/@item.Image" class="img-thumbnail" style="height:50px"/>
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Productname)
@@ -43,14 +43,18 @@
         <a href="@Url.Action("RemoveFromBasket","Basket",new { Id = item.Id })" class="btn btn-danger">Delete</a>
     </td>
 </tr>
-    <tr>
-        <td colspan="4" style="text-align:right">
-            <strong>Basket Total</strong>
-        </td>
-        <td>
-            @string.Format("{0:c}",(from p in Model select p.Price*p.Quantity).Sum())
-        </td>
-    </tr>
 }
+<tr>
+    <td colspan="4" style="text-align:right">
+        <strong>Basket Total</strong>
+    </td>
+    <td>
+        @string.Format("{0:c}", (from p in Model select p.Price * p.Quantity).Sum())
+    </td>
+    <td>
+        <a href="@Url.Action("CheckOut","Basket")">CheckOut</a>
+    </td>
+</tr>
+
 
 </table>
