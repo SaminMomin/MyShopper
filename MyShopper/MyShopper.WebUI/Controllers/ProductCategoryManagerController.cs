@@ -10,6 +10,8 @@ using System.Web.Mvc;
 
 namespace MyShopper.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class ProductCategoryManagerController : Controller
     {
         // GET: ProductCategoryManager

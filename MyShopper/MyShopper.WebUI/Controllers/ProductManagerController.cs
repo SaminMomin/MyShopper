@@ -11,6 +11,7 @@ using MyShopper.core.ViewModels;
 using MyShopper.DataAccess.InMemory;
 namespace MyShopper.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductManagerController : Controller
     {
         IRepository<Product> productContext;
